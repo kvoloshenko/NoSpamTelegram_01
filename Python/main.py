@@ -27,6 +27,10 @@ async def handle_message(message: types.Message):
     #     print(f'message.chat.type = {message.chat.type}')
     #     return
 
+    if not message.text:
+        logger.info(f"Получено сообщение без текста (тип: {message.content_type})")
+        return  # Пропускаем обработку
+
     logger.info(f"Проверка сообщения: {message.text[:50]}...")
 
     # TODO
