@@ -11,7 +11,9 @@ NoSpam Telegram Бот с локальной LLM
 
 # Структурафайла  .env
 TELEGRAM_BOT_TOKEN=***
+
 LOCAL_LLM=llama3.2:latest
+
 TARGET_GROUP_ID=-*****
 
 --- 
