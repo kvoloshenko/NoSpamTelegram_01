@@ -16,6 +16,8 @@ LOCAL_LLM=llama3.2:latest
 
 TARGET_GROUP_ID=-*****
 
+PROMPT_FILE=./Prompts/anti_spam_prompt_34.txt  # Путь к файлу с промтом
+
 --- 
 # Опсание от Mammedov Bakhtiyar
 ## Описание проекта

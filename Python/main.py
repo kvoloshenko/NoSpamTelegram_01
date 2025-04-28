@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 from aiogram import Bot, Dispatcher, types
-from spam_checker import check_spam
+from spam_checker_01 import check_spam
 # from Simple_Request_Local_Model import check_spam
 from spam_storage import save_spam_message
 from dotenv import load_dotenv
