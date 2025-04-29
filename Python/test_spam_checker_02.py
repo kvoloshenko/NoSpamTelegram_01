@@ -2,7 +2,6 @@ import os
 import datetime
 import asyncio
 from spam_checker_01 import check_spam, prompt_template
-import asyncio
 import sys
 import warnings
 import aiohttp
@@ -11,7 +10,6 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="asyncio")
 
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
 
 
 def read_test_messages(filename: str) -> list[str]:
@@ -25,47 +23,49 @@ def read_test_messages(filename: str) -> list[str]:
         return []
 
 
-def generate_log_filename() -> str:
-    """Генерация имени лог-файла с текущей датой и временем"""
+def generate_log_filename(suffix: str = "") -> str:
+    """Генерация имени лог-файла с текущей датой, временем и указанным суффиксом"""
     now = datetime.datetime.now()
-    return now.strftime("Test_Log_%Y%m%d_%H%M.txt")
+    return now.strftime(f"./LofTest/Test_Log_%Y%m%d_%H%M{suffix}.txt")
 
 
-async def process_batch(test_file: str, expected_result: str, log_file):
-    """Обработка батча сообщений и запись результатов"""
+async def process_batch(test_file: str, expected_result: str, log_file, failed_log_file):
+    """Обработка батча сообщений и запись результатов в два лог-файла"""
     messages = read_test_messages(test_file)
     for message in messages:
         try:
             # Форматирование промта
             formatted_prompt = prompt_template.format(question=message)
 
-            # Получение результата от модели
+            # Получение и преобразование результата от модели
             is_spam = await check_spam(message)
-            # actual_result = "SPAM" if is_spam else "NOT_SPAM"
-            actual_result = is_spam
+            actual_result = "SPAM" if is_spam else "NOT_SPAM"
 
             # Формирование записи лога
-            # log_entry = f"""prompt = f\"\"\"{formatted_prompt}\"\"\"
-            print(f'ER={expected_result}, AR={actual_result}, ###{message}###"""')
-            log_entry = f"""ER={expected_result}, AR={actual_result}, ###{message}###"""
+            log_entry = f"ER={expected_result}, AR={actual_result}, ###{message}###"
             log_file.write(log_entry + "\n")
+
+            # Запись в лог ошибок при несовпадении результатов
+            if actual_result != expected_result:
+                failed_log_file.write(log_entry + "\n")
+
         except Exception as e:
             print(f"Ошибка обработки сообщения: {e}")
-
 
 
 async def main():
     """Основная асинхронная функция тестирования"""
     log_filename = generate_log_filename()
+    failed_log_filename = generate_log_filename("_FAILED")
 
     async with aiohttp.ClientSession() as session:
-
-        with open(log_filename, 'w', encoding='utf-8') as log_file:
+        with open(log_filename, 'w', encoding='utf-8') as log_file, \
+                open(failed_log_filename, 'w', encoding='utf-8') as failed_log_file:
             # Обработка SPAM-сообщений
-            await process_batch("Test_SPAM_01.txt", "SPAM", log_file)
+            await process_batch("Test_SPAM_01.txt", "SPAM", log_file, failed_log_file)
 
             # Обработка NOT_SPAM-сообщений
-            await process_batch("Test_NO_SPAM_01.txt", "NOT_SPAM", log_file)
+            await process_batch("Test_NO_SPAM_01.txt", "NOT_SPAM", log_file, failed_log_file)
 
 
 if __name__ == "__main__":

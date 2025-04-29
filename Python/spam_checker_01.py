@@ -39,7 +39,8 @@ async def check_spam(topic: str) -> bool:
         print(f'model_response={model_response}')
         print(type(model_response))
 
-        return  model_response == "SPAM"
+        # return  model_response == "SPAM"
+        return model_response
     except Exception as e:
         logger.error(f"Ошибка: {e}")
         return False

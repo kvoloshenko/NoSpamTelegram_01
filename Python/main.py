@@ -41,7 +41,8 @@ async def handle_message(message: types.Message):
     # is_spam = False
     # is_spam = True
 
-    if is_spam:
+    if is_spam == "SPAM":
+        print("Внимание: это сообщение может быть спамом.")
         # await message.reply("Внимание: это сообщение может быть спамом.")
         # TODO
         save_spam_message(
