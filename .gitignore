@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+/Python/Test_NO_SPAM_01.txt
+/Python/Test_SPAM_01.txt
+/Python/LofTest/Test_Log_20250428_2222.txt
+/Python/LofTest/Test_Log_20250428_2311.txt
+/Python/LofTest/Test_Log_20250428_2318.txt
+/Python/LofTest/Test_Log_20250428_2323.txt
+/Python/LofTest/Test_Log_20250429_1002.txt
+/Python/spam_messages.json
