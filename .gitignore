@@ -180,3 +180,5 @@ cython_debug/
 /Python/LofTest/Test_Log_20250428_2323.txt
 /Python/LofTest/Test_Log_20250429_1002.txt
 /Python/spam_messages.json
+/Python/Prompts/anti_spam_prompt_43.txt
+/Python/Prompts/anti_spam_prompt_44_Gpt4o.txt

@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 from aiogram import Bot, Dispatcher, types
-from spam_checker_01 import check_spam
+from spam_checker import check_spam
 # from Simple_Request_Local_Model import check_spam
 from spam_storage import save_spam_message
 from dotenv import load_dotenv
@@ -13,6 +13,15 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TARGET_GROUP_ID = os.getenv('TARGET_GROUP_ID')
 print(f'TARGET_GROUP_ID ={TARGET_GROUP_ID}')
+PROMPT_FILE = os.getenv('PROMPT_FILE')
+print(f'PROMPT_FILE ={PROMPT_FILE}')
+
+try:
+    with open(PROMPT_FILE, 'r', encoding='utf-8') as f:
+        prompt_template = f.read()
+except Exception as e:
+    print(f"Ошибка чтения промпта {PROMPT_FILE}: {e}")
+
 
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 dp = Dispatcher()
@@ -34,14 +43,14 @@ async def handle_message(message: types.Message):
     logger.info(f"Проверка сообщения: {message.text[:50]}...")
 
     # TODO
-    is_spam = await check_spam(message.text)
+    is_spam = await check_spam(message.text, prompt_template)
     print(f'await check_spam({message.text})')
     print(f'is_spam={is_spam}')
     print(type(is_spam))
     # is_spam = False
     # is_spam = True
 
-    if is_spam == "SPAM":
+    if is_spam:
         print("Внимание: это сообщение может быть спамом.")
         # await message.reply("Внимание: это сообщение может быть спамом.")
         # TODO
