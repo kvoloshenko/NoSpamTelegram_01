@@ -3,16 +3,18 @@ NoSpam Telegram Бот с локальной LLM
 
 За основу взят код автора Mammedov Bakhtiyar: https://github.com/mamed0v/NoSpamTelegram/
 # Что изменено:
-- Использована локальная LLM llama3.2:latest запущенная под Ollama
+- Использована локальная LLM qwen3:latest запущенная под Ollama
 
 - Добавлен модуль tools - куда перенесены все "ручки"
 
 - Добавлена "ручка" копирования спам сообщения в другую группу (для целей накопления и просмотра примеров) + оставлено сохранение локально в JSON
 
-# Структурафайла  .env
-TELEGRAM_BOT_TOKEN=***
+- Промт загружается из текстового файла
 
-LOCAL_LLM=llama3.2:latest
+# Структурафайла  .env
+TELEGRAM_BOT_TOKEN=*** 
+
+LOCAL_LLM=qwen3:latest # Имя используемой модели
 
 TARGET_GROUP_ID=-*****
 
