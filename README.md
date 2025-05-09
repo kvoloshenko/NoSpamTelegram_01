@@ -20,6 +20,13 @@ TARGET_GROUP_ID=-*****
 
 PROMPT_FILE=./Prompts/anti_spam_prompt_34.txt  # Путь к файлу с промтом
 
+
+PROMPT_DIR=./Prompts # Каталог с промптами для тестирования
+
+SPAM_FILE=Test_SPAM_01.txt # Файл с примерами спама
+
+NO_SPAM_FILE=Test_NO_SPAM_01.txt # Файл с примерами обычных сообщений 
+
 --- 
 # Опсание от Mammedov Bakhtiyar
 ## Описание проекта
