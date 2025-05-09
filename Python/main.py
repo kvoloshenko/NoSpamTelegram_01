@@ -3,8 +3,6 @@ import logging
 import os
 from aiogram import Bot, Dispatcher, types
 from spam_checker import check_spam
-# from Simple_Request_Local_Model import check_spam
-from spam_storage import save_spam_message
 from dotenv import load_dotenv
 from tools import block_user, delete_user_messages, forward_to_group
 
@@ -31,10 +29,7 @@ logger = logging.getLogger(__name__)
 
 @dp.message()
 async def handle_message(message: types.Message):
-    # TODO
-    # if message.chat.type != 'supergroup' or message.is_topic_message:
-    #     print(f'message.chat.type = {message.chat.type}')
-    #     return
+
 
     if not message.text:
         logger.info(f"Получено сообщение без текста (тип: {message.content_type})")
@@ -42,7 +37,6 @@ async def handle_message(message: types.Message):
 
     logger.info(f"Проверка сообщения: {message.text[:50]}...")
 
-    # TODO
     is_spam = await check_spam(message.text, prompt_template)
     print(f'await check_spam({message.text})')
     print(f'is_spam={is_spam}')
@@ -54,10 +48,10 @@ async def handle_message(message: types.Message):
         print("Внимание: это сообщение может быть спамом.")
         # await message.reply("Внимание: это сообщение может быть спамом.")
         # TODO
-        save_spam_message(
-            sender_full_name=message.from_user.full_name,
-            message_text=message.text
-        )
+        # save_spam_message(
+        #     sender_full_name=message.from_user.full_name,
+        #     message_text=message.text
+        # )
         # Пересылка сообщения в другую группу
         if TARGET_GROUP_ID:
             await forward_to_group(message, TARGET_GROUP_ID)
