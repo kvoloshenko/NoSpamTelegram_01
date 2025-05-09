@@ -47,11 +47,7 @@ async def handle_message(message: types.Message):
     if is_spam:
         print("Внимание: это сообщение может быть спамом.")
         # await message.reply("Внимание: это сообщение может быть спамом.")
-        # TODO
-        # save_spam_message(
-        #     sender_full_name=message.from_user.full_name,
-        #     message_text=message.text
-        # )
+
         # Пересылка сообщения в другую группу
         if TARGET_GROUP_ID:
             await forward_to_group(message, TARGET_GROUP_ID)
