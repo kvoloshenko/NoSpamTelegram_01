@@ -20,7 +20,8 @@ async def check_spam(topic: str, prompt_template: str) -> bool:
     """Асинхронная проверка сообщения на спам с использованием заданного промпта"""
     try:
         # Форматирование промпта с текущим сообщением
-        formatted_prompt = prompt_template.format(question=topic)
+        # formatted_prompt = prompt_template.format(question=topic)
+        formatted_prompt = prompt_template.replace('{question}', topic)
 
         # Инициализация модели языкового обучения
         llm = ChatOllama(
@@ -29,6 +30,7 @@ async def check_spam(topic: str, prompt_template: str) -> bool:
         )
 
         # Асинхронный вызов языковой модели
+        # print(formatted_prompt)
         response = await llm.ainvoke([HumanMessage(content=formatted_prompt)])
         content = response.content
         # Извлекаем последнюю непустую строку из ответа
