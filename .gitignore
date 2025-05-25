@@ -182,3 +182,5 @@ cython_debug/
 /Python/spam_messages.json
 /Python/Prompts/anti_spam_prompt_43.txt
 /Python/Prompts/anti_spam_prompt_44_Gpt4o.txt
+/Python/subscribers.txt
+/Python/result.json
